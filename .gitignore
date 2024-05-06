@@ -8,3 +8,4 @@ __pycache__/
 .snakemake/
 workup/
 assets/
+config.yaml
