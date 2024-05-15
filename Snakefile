@@ -201,7 +201,7 @@ if path_chrom_map is None:
 # Make output directories
 ##############################################################################
 
-DIR_WORKUP = os.path.join(out_dir, "workup2")
+DIR_WORKUP = os.path.join(out_dir, "workup")
 DIR_LOGS = os.path.join(DIR_WORKUP, "logs")
 
 DIR_LOGS_CLUSTER = os.path.join(DIR_LOGS, "cluster")
