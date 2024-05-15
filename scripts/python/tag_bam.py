@@ -1,9 +1,46 @@
+import argparse
 import pysam
 import re
 from collections import defaultdict
 '''
 Python code to add read type and barcode tags to input bam file
 '''
+
+def parse_args():
+
+    parser = argparse.ArgumentParser(
+        description="Add antibody label to DNA bamfile and generate individual bamfiles for each antibody"
+    )
+    parser.add_argument(
+        "-i",
+        "--input_bam",
+        dest="input_bam",
+        type=str,
+        required=True,
+        help="Master aligned DNA Bamfile",
+    )
+    parser.add_argument(
+        "-o",
+        "--output_bam",
+        dest="output_bam",
+        type=str,
+        required=True,
+        help="Path to output master bam with antibody tag added",
+    )
+    parser.add_argument(
+        "--num_tags",
+        dest="num_tags",
+        type=int,
+        required=True,
+        help="Number of tags in barcode",
+    )
+
+    return parser.parse_args()
+
+def main():
+    args = parse_args()
+    print("Writing tagged bam to: ", args.output_bam)
+    label_bam_file(args.input_bam, args.output_bam, args.num_tags)
 
 
 def label_bam_file(input_bam, output_bam, num_tags):
@@ -46,7 +83,12 @@ def label_bam_file(input_bam, output_bam, num_tags):
                 except KeyError:
                     skipped += 1
 
+    # sort bam file by barcode
+    # pysam.sort("-t", "BC", "-o", output_bam, output_bam)
     print("Total reads:", count)
     print("Reads written:", written)
     print("Duplicate reads:", duplicates)
     print("Reads with an error not written out:", skipped)
+
+if __name__ == "__main__":
+    main()

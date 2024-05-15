@@ -7,5 +7,10 @@ __pycache__/
 
 .snakemake/
 workup/
+workup2/
+scripts/python_bam
 assets/
 config.yaml
+Snakefile_old
+rulegraph_old.pdf
+samples.json
